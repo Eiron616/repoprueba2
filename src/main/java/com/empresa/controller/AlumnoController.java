@@ -35,6 +35,8 @@ public class AlumnoController {
 		return ResponseEntity.ok(lstAlumno);
 	}
 	
+	
+	
 	@PostMapping
 	public ResponseEntity<Alumno> registra(@RequestBody Alumno obj){
 		System.out.println(">>registro " +obj.getIdAlumno());
@@ -80,4 +82,10 @@ public class AlumnoController {
 		}
 	}
 	
+	@GetMapping("/{dni}")
+	public ResponseEntity<List<Alumno>> listaPorDni(@PathVariable("dni") String dni){
+		System.out.println(">>lista por dni");
+		List<Alumno> lstAlumno = service.listaPorDni(dni);
+		return ResponseEntity.ok(lstAlumno);
+	}
 }
