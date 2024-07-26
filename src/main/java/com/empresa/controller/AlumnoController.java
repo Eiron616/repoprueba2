@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,9 +84,15 @@ public class AlumnoController {
 	}
 	
 	@GetMapping("/{dni}")
-	public ResponseEntity<List<Alumno>> listaPorDni(@PathVariable String dni){
+	public ResponseEntity<List<Alumno>> listaPorDni(@PathVariable("dni") String dni){
 		System.out.println(">>lista por dni");
 		List<Alumno> lstAlumno = service.listaPorDni(dni);
-		return ResponseEntity.ok(lstAlumno);
+		if(!CollectionUtils.isEmpty(lstAlumno)) {
+			return ResponseEntity.ok(lstAlumno);
+		}
+		else {
+			System.out.println(">>filtra por dni: No existe el dni " +dni);
+			return ResponseEntity.badRequest().build();
+		}
 	}
 }
