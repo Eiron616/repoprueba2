@@ -83,7 +83,7 @@ public class AlumnoController {
 	}
 	
 	@GetMapping("/{dni}")
-	public ResponseEntity<List<Alumno>> listaPorDni(@PathVariable("dni") String dni){
+	public ResponseEntity<List<Alumno>> listaPorDni(@PathVariable String dni){
 		System.out.println(">>lista por dni");
 		List<Alumno> lstAlumno = service.listaPorDni(dni);
 		return ResponseEntity.ok(lstAlumno);
